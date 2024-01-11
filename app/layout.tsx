@@ -3,6 +3,27 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Covoitly",
+  description: "Organisez simplement vos covoiturages entre amis.",
+  authors: [
+    {
+      name: "Mael Kerichard",
+      url: "https://mael.app",
+    },
+  ],
+  creator: "Mael Kerichard",
+  robots: {
+    follow: true,
+    index: true,
+  },
+  applicationName: "Covoitly",
+  openGraph: {
+    url: "https://covoitly.mael.app",
+    title: "Covoitly",
+    locale: "fr_FR",
+    type: "website",
+    description: "Organisez simplement vos covoiturages entre amis.",
+    siteName: "Covoitly",
+  },
 };
 
 export default function RootLayout({

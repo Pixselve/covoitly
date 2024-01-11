@@ -9,6 +9,7 @@ import GridiconsCrossCircle from "@/components/gridicons-cross-circle";
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 export function NewDiverModal(props: { poolId: string }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   return (
     <>
       <dialog
@@ -31,10 +32,12 @@ export function NewDiverModal(props: { poolId: string }) {
         </header>
 
         <form
+          ref={formRef}
           className="space-y-6"
           action={async (f) => {
             await handleNewDriver(f);
             dialogRef.current?.close();
+            formRef.current?.reset();
           }}
         >
           <input

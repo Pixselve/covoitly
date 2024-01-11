@@ -116,8 +116,7 @@ export default async function Page({
 
       <section className="space-y-6">
         <Heading>
-          Opportunités de covoit{" "}
-          <span className="text-lg">(marge de 15 minutes)</span>
+          Opportunités de covoit <span className="text-lg"></span>
         </Heading>
 
         <div className="space-y-4">

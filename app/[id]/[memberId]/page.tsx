@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Rowdies } from "next/font/google";
 import { handleNewMemberSchedule } from "@/app/[id]/[memberId]/actions";
 import MdiDotsVertical from "@/components/mdi-dots-vertical";
+import DeleteMemberButton from "@/app/[id]/[memberId]/delete-member-button";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 
@@ -31,15 +32,18 @@ export default async function ({
       >
         Retour
       </Link>
-      <Heading className="flex items-center gap-2">
-        <Image
-          className="rounded-full overflow-hidden"
-          src={`https://api.dicebear.com/7.x/big-smile/svg?seed=${member.name}`}
-          width={50}
-          height={50}
-          alt="avatar"
-        ></Image>
-        {member.name}
+      <Heading className="flex items-center gap-2 justify-between">
+        <div className="flex items-center">
+          <Image
+            className="rounded-full overflow-hidden"
+            src={`https://api.dicebear.com/7.x/big-smile/svg?seed=${member.name}`}
+            width={50}
+            height={50}
+            alt="avatar"
+          ></Image>
+          {member.name}
+        </div>
+        <DeleteMemberButton memberId={member.id}></DeleteMemberButton>
       </Heading>
 
       <section>

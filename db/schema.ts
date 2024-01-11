@@ -15,7 +15,9 @@ export const poolRelations = relations(pool, ({ many }) => ({
 export const poolMember = sqliteTable("pool_member", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
-  poolId: text("pool_id").notNull(),
+  poolId: text("pool_id")
+    .notNull()
+    .references(() => pool.id, { onDelete: "cascade" }),
 });
 
 export const poolMemberRelations = relations(poolMember, ({ one, many }) => ({
@@ -28,9 +30,11 @@ export const poolMemberRelations = relations(poolMember, ({ one, many }) => ({
 
 export const memberSchedule = sqliteTable("member_schedule", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-  memberId: integer("member_id", { mode: "number" }).notNull(),
+  memberId: integer("member_id", { mode: "number" })
+    .notNull()
+    .references(() => poolMember.id, { onDelete: "cascade" }),
   poolId: text("pool_id")
-    .references(() => pool.id)
+    .references(() => pool.id, { onDelete: "cascade" })
     .notNull(),
   from: integer("from", { mode: "timestamp" }).notNull(),
   to: integer("to", { mode: "timestamp" }).notNull(),

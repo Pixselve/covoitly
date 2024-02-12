@@ -1,17 +1,12 @@
 "use server";
 import "server-only";
 
-import { z } from "zod";
 import { db } from "@/db/drizzle";
 import { revalidatePath } from "next/cache";
 import { memberSchedule, pool, poolMember } from "@/db/schema";
 import { asc, eq, gte } from "drizzle-orm";
 import { cache } from "react";
-
-const newDriverSchema = z.object({
-  name: z.string().min(1).max(255),
-  poolId: z.string().cuid2(),
-});
+import { newDriverSchema } from "@/lib/schema";
 
 export async function handleNewDriver(formData: FormData) {
   const { name, poolId } = newDriverSchema.parse(Object.fromEntries(formData));

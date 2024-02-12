@@ -2,10 +2,10 @@ import { Rowdies } from "next/font/google";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { NewDiverModal } from "@/app/[id]/new-driver-modal";
-import { fetchPool } from "@/app/[id]/actions";
 import Link from "next/link";
 import Heading from "@/components/icons/Heading";
 import MdiDotsVertical from "@/components/icons/mdi-dots-vertical";
+import { fetchPool } from "@/lib/action";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 

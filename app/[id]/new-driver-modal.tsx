@@ -2,14 +2,45 @@
 import { useRef } from "react";
 
 import { Rowdies } from "next/font/google";
-import { handleNewDriver } from "@/app/[id]/actions";
+import { handleNewDriver } from "@/lib/action";
 import MaterialSymbolsAddCircleOutlineRounded from "@/components/icons/materialSymbolsAddCircleOutlineRounded";
 import GridiconsCrossCircle from "@/components/icons/gridicons-cross-circle";
+import { newDriverSchema } from "@/lib/schema";
+import { useFormState } from "react-dom";
+import { getZodConstraint, parseWithZod } from "@conform-to/zod";
+import { getFormProps, getInputProps, useForm } from "@conform-to/react";
+import { Input } from "@/components/ui/input";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 export function NewDiverModal(props: { poolId: string }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+  const modifiedAction = async (state: Awaited<unknown>, f: FormData) => {
+    const result = await handleNewDriver(state, f);
+    // sleep for 1 second
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    closeDialog();
+    return result;
+  };
+
+  const [lastResult, action] = useFormState(modifiedAction, undefined);
+
+  const [form, fields] = useForm({
+    lastResult,
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: newDriverSchema });
+    },
+    defaultValue: {
+      poolId: props.poolId,
+    },
+    constraint: getZodConstraint(newDriverSchema),
+    shouldValidate: "onBlur",
+  });
+
+  function closeDialog() {
+    dialogRef.current?.close();
+    form.reset();
+  }
+
   return (
     <>
       <dialog
@@ -24,39 +55,38 @@ export function NewDiverModal(props: { poolId: string }) {
             className="outline-none"
             type="button"
             onClick={() => {
-              dialogRef.current?.close();
+              closeDialog();
             }}
           >
             <GridiconsCrossCircle className="h-6 text-primary"></GridiconsCrossCircle>
           </button>
         </header>
 
-        <form
-          ref={formRef}
-          className="space-y-6"
-          action={async (f) => {
-            await handleNewDriver(f);
-            dialogRef.current?.close();
-            formRef.current?.reset();
-          }}
-        >
-          <input
-            required
-            className="border-primary border-2 bg-secondary py-2 px-4 rounded-full w-full"
-            type="text"
-            placeholder="Nom"
-            name="name"
-            minLength={1}
-            maxLength={255}
-          />
-          <input
-            className="hidden"
-            type="hidden"
-            name="poolId"
-            value={props.poolId}
-          />
+        <form {...getFormProps(form)} action={action} className="space-y-6">
+          <div>
+            <Input
+              {...getInputProps(fields.name, { type: "text" })}
+              className={`border-primary border-2 bg-secondary py-2 px-4 rounded-full w-full ${fields.name.errors ? "border-red-500" : ""}`}
+              placeholder="Nom"
+            />
 
-          <button className="bg-primary w-full py-2 px-4 rounded-full text-secondary">
+            {fields.name.errors && (
+              <div>
+                {fields.name.errors?.map((error, i) => (
+                  <p key={i} className="text-red-500 text-sm">
+                    {error}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <input {...getInputProps(fields.poolId, { type: "hidden" })} />
+
+          <button
+            type="submit"
+            className="bg-primary w-full py-2 px-4 rounded-full text-secondary"
+          >
             Ajouter
           </button>
         </form>

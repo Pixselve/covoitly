@@ -1,4 +1,4 @@
-import { fetchPoolMember } from "@/app/[id]/actions";
+import { fetchPoolMember } from "@/lib/action";
 import { notFound } from "next/navigation";
 import Heading from "@/components/icons/Heading";
 import Image from "next/image";

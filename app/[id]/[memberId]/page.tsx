@@ -1,11 +1,11 @@
 import { fetchPoolMember } from "@/app/[id]/actions";
 import { notFound } from "next/navigation";
-import Heading from "@/components/Heading";
+import Heading from "@/components/icons/Heading";
 import Image from "next/image";
 import Link from "next/link";
 import { Rowdies } from "next/font/google";
 import { handleNewMemberSchedule } from "@/app/[id]/[memberId]/actions";
-import MdiDotsVertical from "@/components/mdi-dots-vertical";
+import MdiDotsVertical from "@/components/icons/mdi-dots-vertical";
 import DeleteMemberButton from "@/app/[id]/[memberId]/delete-member-button";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });

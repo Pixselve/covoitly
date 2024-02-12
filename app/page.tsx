@@ -1,7 +1,7 @@
 import { Rowdies } from "next/font/google";
 import { twc } from "react-twc";
 import Link from "next/link";
-import MdiCar2Plus from "@/components/mdiCar2Plus";
+import MdiCar2Plus from "@/components/icons/mdiCar2Plus";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 

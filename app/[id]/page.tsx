@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { NewDiverModal } from "@/app/[id]/new-driver-modal";
 import { fetchPool } from "@/app/[id]/actions";
 import Link from "next/link";
-import Heading from "@/components/Heading";
-import MdiDotsVertical from "@/components/mdi-dots-vertical";
+import Heading from "@/components/icons/Heading";
+import MdiDotsVertical from "@/components/icons/mdi-dots-vertical";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 

@@ -1,5 +1,5 @@
 import { rowdies } from "@/lib/font";
-import BxsCarCrash from "@/components/BxsCarCrash";
+import BxsCarCrash from "@/components/icons/BxsCarCrash";
 
 export default function () {
   return (

@@ -3,8 +3,8 @@ import { useRef } from "react";
 
 import { Rowdies } from "next/font/google";
 import { handleNewDriver } from "@/app/[id]/actions";
-import MaterialSymbolsAddCircleOutlineRounded from "@/components/materialSymbolsAddCircleOutlineRounded";
-import GridiconsCrossCircle from "@/components/gridicons-cross-circle";
+import MaterialSymbolsAddCircleOutlineRounded from "@/components/icons/materialSymbolsAddCircleOutlineRounded";
+import GridiconsCrossCircle from "@/components/icons/gridicons-cross-circle";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 export function NewDiverModal(props: { poolId: string }) {

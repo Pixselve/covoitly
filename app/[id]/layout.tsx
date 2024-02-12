@@ -1,5 +1,5 @@
 import { Rowdies } from "next/font/google";
-import OcticonLogoGithub16 from "@/components/OcticonLogoGithub16";
+import OcticonLogoGithub16 from "@/components/icons/OcticonLogoGithub16";
 import Link from "next/link";
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 export default function ({ children }: { children: React.ReactNode }) {

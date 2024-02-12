@@ -1,5 +1,5 @@
 import { rowdies } from "@/lib/font";
-import IcRoundDirectionsCarFilled from "@/components/IcRoundDirectionsCarFilled";
+import IcRoundDirectionsCarFilled from "@/components/icons/IcRoundDirectionsCarFilled";
 
 export default function LoadingNew() {
   return (

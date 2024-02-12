@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     follow: true,
     index: true,
   },
+  metadataBase: new URL("https://covoitly.mael.app"),
   applicationName: "Covoitly",
   openGraph: {
     url: "https://covoitly.mael.app",

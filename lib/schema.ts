@@ -15,3 +15,13 @@ export const newDriverSchema = z.object({
       message: "L'identifiant du pool n'est pas valide",
     }),
 });
+
+export const deleteMemberSchema = z.object({
+  memberId: z
+    .number({
+      required_error: "L'identifiant du membre est requis",
+    })
+    .int({
+      message: "L'identifiant du membre n'est pas valide",
+    }),
+});

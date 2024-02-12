@@ -39,19 +39,3 @@ export async function handleNewMemberSchedule(formData: FormData) {
   revalidatePath(`/${pm.poolId}`);
   revalidatePath(`/${pm.poolId}/${pm.id}`);
 }
-
-export async function deleteMember(memberId: number) {
-  const member = await db.query.poolMember.findFirst({
-    where: eq(poolMember.id, memberId),
-  });
-
-  if (!member) {
-    throw new Error("Member not found");
-  }
-
-  await db.delete(poolMember).where(eq(poolMember.id, memberId));
-
-  revalidatePath(`/${member.poolId}`);
-  revalidatePath(`/${member.poolId}/${member.id}`);
-  redirect(`/${member.poolId}`);
-}

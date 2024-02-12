@@ -1,6 +1,6 @@
 "use client";
-import { deleteMember } from "@/app/[id]/[memberId]/actions";
 import { useTransition } from "react";
+import { deleteMember } from "@/lib/action";
 
 type DeleteMemberButtonProps = {
   memberId: number;

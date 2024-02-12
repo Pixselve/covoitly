@@ -1,12 +1,12 @@
-import { fetchPoolMember } from "@/lib/action";
+import { fetchPoolMember, handleNewMemberSchedule } from "@/lib/action";
 import { notFound } from "next/navigation";
 import Heading from "@/components/icons/Heading";
 import Image from "next/image";
 import Link from "next/link";
 import { Rowdies } from "next/font/google";
-import { handleNewMemberSchedule } from "@/app/[id]/[memberId]/actions";
 import MdiDotsVertical from "@/components/icons/mdi-dots-vertical";
 import DeleteMemberButton from "@/app/[id]/[memberId]/delete-member-button";
+import MemberScheduleForm from "@/app/[id]/[memberId]/member-schedule-form";
 
 const rowdies = Rowdies({ subsets: ["latin"], weight: ["700"] });
 
@@ -47,49 +47,7 @@ export default async function ({
       </Heading>
 
       <section>
-        <form
-          action={handleNewMemberSchedule}
-          className={`${rowdies.className} text-2xl space-y-4 border-4 rounded-xl p-4 w-full`}
-        >
-          <div className="max-w-2xl">
-            <label htmlFor="date">Je souhaite partir le</label>
-            <input
-              required
-              name="date"
-              className="bg-primary border-b-2"
-              id="date"
-              type="date"
-            />
-            <label htmlFor="from">pour arriver à mon lieu de travail à </label>
-            <input
-              required
-              name="from"
-              className="bg-primary border-b-2"
-              id="from"
-              type="time"
-            />
-            <label htmlFor="to">et repartir à</label>
-            <input
-              required
-              name="to"
-              className="bg-primary border-b-2"
-              id="to"
-              type="time"
-            />
-            <input
-              required
-              type="hidden"
-              className="hidden"
-              name="memberId"
-              value={params.memberId}
-            />
-            <span>.</span>
-          </div>
-
-          <button className="bg-secondary text-primary px-4 py-2 rounded-full">
-            Ajouter
-          </button>
-        </form>
+        <MemberScheduleForm memberId={member.id}></MemberScheduleForm>
       </section>
 
       <Heading>Trajets enregistrés</Heading>

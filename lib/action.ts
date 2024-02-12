@@ -6,7 +6,11 @@ import { revalidatePath } from "next/cache";
 import { memberSchedule, pool, poolMember } from "@/db/schema";
 import { asc, eq, gte } from "drizzle-orm";
 import { cache } from "react";
-import { deleteMemberSchema, newDriverSchema } from "@/lib/schema";
+import {
+  deleteMemberSchema,
+  newDriverSchema,
+  newMemberScheduleSchema,
+} from "@/lib/schema";
 import { parseWithZod } from "@conform-to/zod";
 import { redirect } from "next/navigation";
 
@@ -80,3 +84,41 @@ export const fetchPoolMember = cache(async (poolMemberId: number) => {
     },
   });
 });
+
+export async function handleNewMemberSchedule(
+  prevState: unknown,
+  formData: FormData,
+) {
+  const submission = parseWithZod(formData, {
+    schema: newMemberScheduleSchema,
+  });
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const { memberId, date, from, to } = submission.value;
+
+  const pm = await db.query.poolMember.findFirst({
+    where: eq(poolMember.id, memberId),
+  });
+
+  if (!pm) {
+    throw new Error("Member not found");
+  }
+
+  const fromDateAndTime = new Date(`${date} ${from}`);
+  const toDateAndTime = new Date(`${date} ${to}`);
+
+  await db.insert(memberSchedule).values({
+    memberId: pm.id,
+    poolId: pm.poolId,
+    from: fromDateAndTime,
+    to: toDateAndTime,
+  });
+
+  revalidatePath(`/${pm.poolId}`);
+  revalidatePath(`/${pm.poolId}/${pm.id}`);
+  return submission.reply({
+    resetForm: true,
+  });
+}

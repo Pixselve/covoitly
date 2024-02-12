@@ -25,3 +25,10 @@ export const deleteMemberSchema = z.object({
       message: "L'identifiant du membre n'est pas valide",
     }),
 });
+
+export const newMemberScheduleSchema = z.object({
+  memberId: z.number({ coerce: true }),
+  date: z.string(),
+  from: z.string(),
+  to: z.string(),
+});
